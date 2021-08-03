@@ -1,6 +1,7 @@
 from discord.ext.commands import Bot
 from ncssm_bot.bot_configs import BotConfigs
 from ncssm_bot.reaction_roles import ReactionRoles
+from ncssm_bot.bot_info import BotInfo
 
 
 class NcssmBot(Bot):
@@ -16,7 +17,8 @@ class NcssmBot(Bot):
         print(f'Logged on as {self.user}!')
         self.guild = self.get_guild(self.configs.getGuildId())
         self.add_cog(ReactionRoles(self))
+        self.add_cog(BotInfo(self))
 
     async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
+            await self.process_commands(message)
    
